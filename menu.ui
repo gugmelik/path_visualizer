@@ -6,92 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>300</height>
+    <width>350</width>
+    <height>255</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QSlider" name="horizontalSlider_1">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
+   <widget class="QSpinBox" name="spinBox_1">
     <property name="geometry">
      <rect>
       <x>80</x>
       <y>30</y>
-      <width>160</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="mouseTracking">
-     <bool>false</bool>
-    </property>
-    <property name="maximum">
-     <number>50</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="horizontalSlider_2">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>60</y>
-      <width>160</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <number>50</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="horizontalSlider_3">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>90</y>
-      <width>160</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <number>50</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-   </widget>
-   <widget class="QSlider" name="horizontalSlider_4">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>120</y>
-      <width>160</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="maximum">
-     <number>50</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-    <property name="tickPosition">
-     <enum>QSlider::NoTicks</enum>
-    </property>
-   </widget>
-   <widget class="QSpinBox" name="spinBox_1">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>20</y>
       <width>47</width>
       <height>24</height>
      </rect>
@@ -103,8 +30,8 @@
    <widget class="QSpinBox" name="spinBox_2">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>50</y>
+      <x>80</x>
+      <y>60</y>
       <width>47</width>
       <height>24</height>
      </rect>
@@ -116,8 +43,8 @@
    <widget class="QSpinBox" name="spinBox_3">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>80</y>
+      <x>80</x>
+      <y>90</y>
       <width>47</width>
       <height>24</height>
      </rect>
@@ -129,8 +56,8 @@
    <widget class="QSpinBox" name="spinBox_4">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>110</y>
+      <x>80</x>
+      <y>120</y>
       <width>47</width>
       <height>24</height>
      </rect>
@@ -142,16 +69,21 @@
    <widget class="QComboBox" name="comboBox">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>170</y>
-      <width>91</width>
-      <height>23</height>
+      <x>190</x>
+      <y>130</y>
+      <width>141</width>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <pointsize>9</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 9pt &quot;Sans Serif&quot;;
+background-color: rgb(170, 0, 255);
+</string>
     </property>
     <item>
      <property name="text">
@@ -179,8 +111,8 @@
      <rect>
       <x>0</x>
       <y>150</y>
-      <width>311</width>
-      <height>16</height>
+      <width>161</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="orientation">
@@ -239,42 +171,89 @@
      <string>End Y</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_5">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>170</y>
-      <width>61</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Serif</family>
-      <pointsize>9</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Algorithm</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::AutoText</enum>
-    </property>
-    <property name="scaledContents">
-     <bool>false</bool>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>210</y>
-      <width>91</width>
+      <x>0</x>
+      <y>180</y>
+      <width>161</width>
       <height>31</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(85, 0, 127);</string>
+    </property>
     <property name="text">
      <string>Find Path</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>180</x>
+      <y>20</y>
+      <width>151</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(0, 0, 127);
+font: 75 11pt &quot;DejaVu Serif&quot;;</string>
+    </property>
+    <property name="text">
+     <string>Generate Maze</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line_2">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>20</y>
+      <width>31</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Vertical</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>100</y>
+      <width>101</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; color:#550000;&quot;&gt;Algorithm&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>50</y>
+      <width>20</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(255, 165, 0);</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView_3">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>110</y>
+      <width>20</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(64, 224, 208);</string>
     </property>
    </widget>
   </widget>
@@ -283,7 +262,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>319</width>
+     <width>350</width>
      <height>20</height>
     </rect>
    </property>
@@ -291,134 +270,5 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>horizontalSlider_4</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>spinBox_4</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>159</x>
-     <y>147</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>283</x>
-     <y>141</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox_4</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>horizontalSlider_4</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>283</x>
-     <y>141</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>159</x>
-     <y>147</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSlider_3</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>spinBox_3</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>159</x>
-     <y>117</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>283</x>
-     <y>111</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSlider_2</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>spinBox_2</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>159</x>
-     <y>87</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>283</x>
-     <y>81</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>horizontalSlider_1</sender>
-   <signal>sliderMoved(int)</signal>
-   <receiver>spinBox_1</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>159</x>
-     <y>57</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>283</x>
-     <y>51</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox_3</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>horizontalSlider_3</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>283</x>
-     <y>111</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>159</x>
-     <y>117</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox_2</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>horizontalSlider_2</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>283</x>
-     <y>81</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>159</x>
-     <y>87</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>spinBox_1</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>horizontalSlider_1</receiver>
-   <slot>setValue(int)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>283</x>
-     <y>51</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>159</x>
-     <y>57</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

@@ -86,6 +86,7 @@ def reconstruct_path(came_from, current, draw):
         current = came_from[current]
         current.make_path()
         draw()
+    current.make_start()
 
 def make_grid(rows, width):
     grid = []
@@ -123,3 +124,4 @@ def get_clicked_pos(pos, rows, width):
     col = x // gap
 
     return row, col
+

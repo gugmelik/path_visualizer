@@ -38,20 +38,13 @@ class Game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
-            if pygame.mouse.get_pressed()[0]:
+            if pygame.mouse.get_pressed()[0]: # left click
                 #print("pressed")
                 pos = pygame.mouse.get_pos()
                 row, col = get_clicked_pos(pos, self.rows, self.width)
                 spot = self.grid[row][col]
-                if not self.start and spot != self.end:
-                    self.start = spot
-                    self.start.make_start()
-                elif not self.end and spot != self.start:
-                    self.end = spot
-                    self.end.make_end()
-                elif spot != self.end and spot != self.start:
-                    spot.make_barrier()
-            elif pygame.mouse.get_pressed()[2]:
+                spot.make_barrier()
+            elif pygame.mouse.get_pressed()[2]: # right click
                 pos = pygame.mouse.get_pos()
                 row, col = get_clicked_pos(pos, self.rows, self.width)
                 spot = self.grid[row][col]
@@ -66,7 +59,7 @@ class Game():
                         for spot in row:
                             spot.update_neighbors(self.grid)
 
-                    bfs(lambda: draw(self.win, self.grid, self.rows, self.width), self.grid, self.start, self.end)
+                    dfs(lambda: draw(self.win, self.grid, self.rows, self.width), self.grid, self.start, self.end)
 
                 if event.key == pygame.K_c:
                     self.start = None
@@ -75,10 +68,11 @@ class Game():
         return False
 
 
+
 class Ui_MainWindow(object):
     def __init__(self, MainWindow, game):
         super().__init__()
-
+        self.MainWIN = MainWindow
         self.setupUi(MainWindow)
         self.init_pygame(game)
     
@@ -91,64 +85,49 @@ class Ui_MainWindow(object):
 
     def pygame_loop(self):
         if self.game.loop(self):
-            self.close()
+            self.MainWIN.close()
         
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(319, 300)
+        MainWindow.resize(350, 255)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.horizontalSlider_1 = QtWidgets.QSlider(self.centralwidget)
-        self.horizontalSlider_1.setEnabled(True)
-        self.horizontalSlider_1.setGeometry(QtCore.QRect(80, 30, 160, 16))
-        self.horizontalSlider_1.setMouseTracking(False)
-        self.horizontalSlider_1.setMaximum(50)
-        self.horizontalSlider_1.setOrientation(QtCore.Qt.Horizontal)
-        self.horizontalSlider_1.setObjectName("horizontalSlider_1")
-        self.horizontalSlider_2 = QtWidgets.QSlider(self.centralwidget)
-        self.horizontalSlider_2.setGeometry(QtCore.QRect(80, 60, 160, 16))
-        self.horizontalSlider_2.setMaximum(50)
-        self.horizontalSlider_2.setOrientation(QtCore.Qt.Horizontal)
-        self.horizontalSlider_2.setObjectName("horizontalSlider_2")
-        self.horizontalSlider_3 = QtWidgets.QSlider(self.centralwidget)
-        self.horizontalSlider_3.setGeometry(QtCore.QRect(80, 90, 160, 16))
-        self.horizontalSlider_3.setMaximum(50)
-        self.horizontalSlider_3.setOrientation(QtCore.Qt.Horizontal)
-        self.horizontalSlider_3.setObjectName("horizontalSlider_3")
-        self.horizontalSlider_4 = QtWidgets.QSlider(self.centralwidget)
-        self.horizontalSlider_4.setGeometry(QtCore.QRect(80, 120, 160, 16))
-        self.horizontalSlider_4.setMaximum(50)
-        self.horizontalSlider_4.setOrientation(QtCore.Qt.Horizontal)
-        self.horizontalSlider_4.setTickPosition(QtWidgets.QSlider.NoTicks)
-        self.horizontalSlider_4.setObjectName("horizontalSlider_4")
         self.spinBox_1 = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_1.setGeometry(QtCore.QRect(260, 20, 47, 24))
+        self.spinBox_1.setGeometry(QtCore.QRect(80, 30, 47, 24))
+        self.spinBox_1.setMinimum(1)
         self.spinBox_1.setMaximum(50)
         self.spinBox_1.setObjectName("spinBox_1")
         self.spinBox_2 = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_2.setGeometry(QtCore.QRect(260, 50, 47, 24))
+        self.spinBox_2.setGeometry(QtCore.QRect(80, 60, 47, 24))
+        self.spinBox_2.setMinimum(1)
         self.spinBox_2.setMaximum(50)
         self.spinBox_2.setObjectName("spinBox_2")
         self.spinBox_3 = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_3.setGeometry(QtCore.QRect(260, 80, 47, 24))
+        self.spinBox_3.setGeometry(QtCore.QRect(80, 90, 47, 24))
+        self.spinBox_3.setMinimum(1)
         self.spinBox_3.setMaximum(50)
         self.spinBox_3.setObjectName("spinBox_3")
         self.spinBox_4 = QtWidgets.QSpinBox(self.centralwidget)
-        self.spinBox_4.setGeometry(QtCore.QRect(260, 110, 47, 24))
+        self.spinBox_4.setGeometry(QtCore.QRect(80, 120, 47, 24))
+        self.spinBox_4.setMinimum(1)
         self.spinBox_4.setMaximum(50)
         self.spinBox_4.setObjectName("spinBox_4")
         self.comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox.setGeometry(QtCore.QRect(140, 170, 91, 23))
+        self.comboBox.setGeometry(QtCore.QRect(190, 130, 141, 31))
         font = QtGui.QFont()
         font.setPointSize(9)
         self.comboBox.setFont(font)
+        self.comboBox.setStyleSheet("font: 9pt \"Sans Serif\";\n"
+"background-color: rgb(170, 0, 255);\n"
+"")
         self.comboBox.setObjectName("comboBox")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.line = QtWidgets.QFrame(self.centralwidget)
-        self.line.setGeometry(QtCore.QRect(0, 150, 311, 16))
+        self.line.setGeometry(QtCore.QRect(0, 150, 161, 21))
         self.line.setFrameShape(QtWidgets.QFrame.HLine)
         self.line.setFrameShadow(QtWidgets.QFrame.Sunken)
         self.line.setObjectName("line")
@@ -164,21 +143,34 @@ class Ui_MainWindow(object):
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(10, 120, 59, 15))
         self.label_4.setObjectName("label_4")
-        self.label_5 = QtWidgets.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(60, 170, 61, 21))
-        font = QtGui.QFont()
-        font.setFamily("Serif")
-        font.setPointSize(9)
-        self.label_5.setFont(font)
-        self.label_5.setTextFormat(QtCore.Qt.AutoText)
-        self.label_5.setScaledContents(False)
-        self.label_5.setObjectName("label_5")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(90, 210, 91, 31))
+        self.pushButton.setGeometry(QtCore.QRect(0, 180, 161, 31))
+        self.pushButton.setStyleSheet("background-color: rgb(85, 0, 127);")
         self.pushButton.setObjectName("pushButton")
+        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_2.setGeometry(QtCore.QRect(180, 20, 151, 61))
+        self.pushButton_2.setStyleSheet("background-color: rgb(0, 0, 127);\n"
+"font: 75 11pt \"DejaVu Serif\";")
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.line_2 = QtWidgets.QFrame(self.centralwidget)
+        self.line_2.setGeometry(QtCore.QRect(150, 20, 31, 141))
+        self.line_2.setFrameShape(QtWidgets.QFrame.VLine)
+        self.line_2.setFrameShadow(QtWidgets.QFrame.Sunken)
+        self.line_2.setObjectName("line_2")
+        self.label_5 = QtWidgets.QLabel(self.centralwidget)
+        self.label_5.setGeometry(QtCore.QRect(190, 100, 101, 20))
+        self.label_5.setObjectName("label_5")
+        self.graphicsView = QtWidgets.QGraphicsView(self.centralwidget)
+        self.graphicsView.setGeometry(QtCore.QRect(140, 50, 20, 21))
+        self.graphicsView.setStyleSheet("background-color: rgb(255, 165, 0);")
+        self.graphicsView.setObjectName("graphicsView")
+        self.graphicsView_3 = QtWidgets.QGraphicsView(self.centralwidget)
+        self.graphicsView_3.setGeometry(QtCore.QRect(140, 110, 20, 21))
+        self.graphicsView_3.setStyleSheet("background-color: rgb(64, 224, 208);")
+        self.graphicsView_3.setObjectName("graphicsView_3")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 319, 20))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 350, 20))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -186,28 +178,27 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.horizontalSlider_4.sliderMoved['int'].connect(self.spinBox_4.setValue)
-        self.spinBox_4.valueChanged['int'].connect(self.horizontalSlider_4.setValue)
-        self.horizontalSlider_3.sliderMoved['int'].connect(self.spinBox_3.setValue)
-        self.horizontalSlider_2.sliderMoved['int'].connect(self.spinBox_2.setValue)
-        self.horizontalSlider_1.sliderMoved['int'].connect(self.spinBox_1.setValue)
-        self.spinBox_3.valueChanged['int'].connect(self.horizontalSlider_3.setValue)
-        self.spinBox_2.valueChanged['int'].connect(self.horizontalSlider_2.setValue)
-        self.spinBox_1.valueChanged['int'].connect(self.horizontalSlider_1.setValue)
-        self.pushButton.clicked.connect(self.find_path)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+        self.pushButton.clicked.connect(self.find_path)
+        self.pushButton_2.clicked.connect(self.gen)
         MainWindow.show()
     
-    def find_path(self):
-        self.game.start = None
-        self.game.end = None
+    def gen(self):
         self.game.grid = make_grid(self.game.rows, self.game.width)
-        s_row, s_col = self.spinBox_1.value(), self.spinBox_2.value()
+
+        for row in self.game.grid:
+            for spot in row:
+                spot.update_neighbors(self.game.grid)
+
+        maze_gen(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
+    
+    def find_path(self):
+        s_row, s_col = self.spinBox_1.value()-1, self.spinBox_2.value()-1 
         self.game.start = self.game.grid[s_row][s_col]
         self.game.start.make_start()
 
-        e_row, e_col = self.spinBox_3.value(), self.spinBox_4.value()
+        e_row, e_col = self.spinBox_3.value()-1, self.spinBox_4.value()-1
         self.game.end = self.game.grid[e_row][e_col]
         self.game.end.make_end()
 
@@ -215,13 +206,14 @@ class Ui_MainWindow(object):
             for spot in row:
                 spot.update_neighbors(self.game.grid)
         if self.comboBox.currentText() == "BFS":
-            bfs(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
+            if not bfs(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end):
+                print("path not found")
         elif self.comboBox.currentText() == "A* Search":
             algorithm(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
         elif self.comboBox.currentText() == "DFS":
             dfs(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
         elif self.comboBox.currentText() == "Dijkstra":
-            dfs(lambda: dijkstra(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
+            dijkstra(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -234,8 +226,9 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Start Y"))
         self.label_3.setText(_translate("MainWindow", "End X"))
         self.label_4.setText(_translate("MainWindow", "End Y"))
-        self.label_5.setText(_translate("MainWindow", "Algorithm"))
         self.pushButton.setText(_translate("MainWindow", "Find Path"))
+        self.pushButton_2.setText(_translate("MainWindow", "Generate Maze"))
+        self.label_5.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-weight:600; color:#550000;\">Algorithm</span></p></body></html>"))
 
 
 if __name__ == "__main__":
