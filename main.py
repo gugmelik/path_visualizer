@@ -14,7 +14,6 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QTimer
 from algorithms import *
 from grid import *
-import pygame_menu
 
 class Game():
     def __init__(self):
