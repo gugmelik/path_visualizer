@@ -10,9 +10,11 @@ Also is implemented auto maze generation with dfs.
 
 ## Prerequisites
 ```
-pip install pygame
-pip install PyQt5
-pip install numpy
+python3.7+
+Qt 5
+pygame
+PyQt5
+numpy
 ```
 
 ## Running the GUI
