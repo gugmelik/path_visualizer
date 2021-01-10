@@ -2,19 +2,36 @@ from grid import *
 from numpy.random import randint
 
 def dijkstra(draw, grid, start, end):
-    pass
+    print("started")
+    inf = 100000
+    d = np.empty((len(grid), len(grid)))
+    d.fill(inf)
+    q = PriorityQueue()
+    q.put((0, start))
+    d[start.get_pos()[0]][start.get_pos()[1]] = 0
+    came_from = {}
+    while not q.empty():
+            cur_d, v = q.get()
+            if cur_d > d[v.get_pos()[0]][v.get_pos()[1]]:
+                continue
+
+            for to in v.neighbors:
+                if d[v.get_pos()[0]][v.get_pos()[1]] + 1 < d[to.get_pos()[0]][to.get_pos()[1]]:
+                    d[to.get_pos()[0]][to.get_pos()[1]] = d[v.get_pos()[0]][v.get_pos()[1]] + 1
+                    came_from[to] = v
+                    q.put((-d[to.get_pos()[0]][to.get_pos()[1]], to))
+            draw()
+            if v != start:
+                v.make_closed()
+
+    if d[start.get_pos()[0]][start.get_pos()[1]] == inf:
+        return False
+    else: 
+        reconstruct_path(came_from, end, draw)
+        end.make_end()
+        return True
 
 def dfs(draw, grid, start, end):
-    """
-    Parameters
-    ----------
-    draw : fuction to draw on grid
-    grid : tuple of 2 ints
-        x, y coordinates of current position
-    Returns
-        possible_steps: list of list of tuples (x,y) denoting the
-        next 2 movements possible in every direction possible
-    """
     used = np.zeros((len(grid), len(grid))) # check if pos in grid is used or not
     came_from = {} # path
     stack = [start] 

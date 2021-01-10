@@ -256,7 +256,7 @@ class Ui_MainWindow(object):
         self.comboBox.setItemText(0, _translate("MainWindow", "A* Search"))
         self.comboBox.setItemText(1, _translate("MainWindow", "BFS"))
         self.comboBox.setItemText(2, _translate("MainWindow", "DFS"))
-        self.comboBox.setItemText(3, _translate("MainWindow", "DIjkstra"))
+        self.comboBox.setItemText(3, _translate("MainWindow", "Dijkstra"))
         self.label.setText(_translate("MainWindow", "Start X"))
         self.label_2.setText(_translate("MainWindow", "Start Y"))
         self.label_3.setText(_translate("MainWindow", "End X"))
