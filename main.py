@@ -14,6 +14,7 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtCore import QTimer
 from algorithms import *
 from grid import *
+import pygame_menu
 
 class Game():
     def __init__(self):
@@ -32,18 +33,28 @@ class Game():
         self.win = pygame.display.set_mode((self.width, self.width))
         pygame.display.set_caption("Path visualizer")
 
+
     # pygame main loop
     def loop(self, window):
         draw(self.win, self.grid, self.rows, self.width)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return True
+            
             if pygame.mouse.get_pressed()[0]: # left click
-                #print("pressed")
                 pos = pygame.mouse.get_pos()
                 row, col = get_clicked_pos(pos, self.rows, self.width)
                 spot = self.grid[row][col]
-                spot.make_barrier()
+                if not self.start and spot != self.end:
+                    self.start = spot
+                    self.start.make_start()
+                    window.set_start(self.start.get_pos()[0], self.start.get_pos()[1])
+                elif not self.end and spot != self.start:
+                    self.end = spot
+                    self.end.make_end()
+                    window.set_end(self.end.get_pos()[0], self.end.get_pos()[1])
+                elif spot != self.end and spot != self.start:
+                    spot.make_barrier()
             elif pygame.mouse.get_pressed()[2]: # right click
                 pos = pygame.mouse.get_pos()
                 row, col = get_clicked_pos(pos, self.rows, self.width)
@@ -77,7 +88,6 @@ class Ui_MainWindow(object):
         self.init_pygame(game)
     
     def init_pygame(self, game):
-        # https://stackoverflow.com/questions/46656634/pyqt5-qtimer-count-until-specific-seconds
         self.game = game
         self.timer = QTimer()
         self.timer.timeout.connect(self.pygame_loop)
@@ -186,14 +196,34 @@ class Ui_MainWindow(object):
     
     def gen(self):
         self.game.grid = make_grid(self.game.rows, self.game.width)
+        #s_row, s_col = self.spinBox_1.value()-1, self.spinBox_2.value()-1 
+        #self.game.start = self.game.grid[s_row][s_col]
+        #self.game.start.make_start()
+        
+
+        #e_row, e_col = self.spinBox_3.value()-1, self.spinBox_4.value()-1
+        #self.game.end = self.game.grid[e_row][e_col]
+        #self.game.end.make_end()
+
+        
 
         for row in self.game.grid:
             for spot in row:
                 spot.update_neighbors(self.game.grid)
 
         maze_gen(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
-    
+        self.statusbar.showMessage("Maze generated!")
+
+    def set_start(self, x, y):
+        self.spinBox_1.setValue(x+1)
+        self.spinBox_2.setValue(y+1)
+
+    def set_end(self, x, y):
+        self.spinBox_3.setValue(x+1)
+        self.spinBox_4.setValue(y+1)
+
     def find_path(self):
+        
         s_row, s_col = self.spinBox_1.value()-1, self.spinBox_2.value()-1 
         self.game.start = self.game.grid[s_row][s_col]
         self.game.start.make_start()
@@ -202,18 +232,24 @@ class Ui_MainWindow(object):
         self.game.end = self.game.grid[e_row][e_col]
         self.game.end.make_end()
 
+
         for row in self.game.grid:
             for spot in row:
+                if not spot.is_barrier() and not spot.is_start() and not spot.is_end() :
+                    spot.reset()
                 spot.update_neighbors(self.game.grid)
         if self.comboBox.currentText() == "BFS":
             if not bfs(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end):
-                print("path not found")
+                self.statusbar.showMessage("path not found")
         elif self.comboBox.currentText() == "A* Search":
-            algorithm(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
+            if not algorithm(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end):
+                self.statusbar.showMessage("path not found")
         elif self.comboBox.currentText() == "DFS":
-            dfs(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
+            if not dfs(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end):
+                self.statusbar.showMessage("path not found")
         elif self.comboBox.currentText() == "Dijkstra":
-            dijkstra(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end)
+            if not dijkstra(lambda: draw(self.game.win, self.game.grid, self.game.rows, self.game.width), self.game.grid, self.game.start, self.game.end):
+                self.statusbar.showMessage("path not found")
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -240,6 +276,3 @@ if __name__ == "__main__":
     ui = Ui_MainWindow(MainWindow, game)
 
     sys.exit(app.exec_())
-
-    
-    

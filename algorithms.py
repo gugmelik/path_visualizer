@@ -103,7 +103,7 @@ def algorithm(draw, grid, start, end): # A* search
                     count +=1
                     open_set.put((f_score[neighbor], count, neighbor))
                     open_set_hash.add(neighbor)
-                    neighbor.make_open()
+                    #neighbor.make_open()
         draw()
 
         if current != start:
@@ -111,12 +111,12 @@ def algorithm(draw, grid, start, end): # A* search
 
     return False
 
-def h(p1, p2):
+def h(p1, p2): # heuristic
     x1, y1 = p1
     x2, y2 = p2
     return abs(x1-x2) + abs(y1 - y2)
 
-def maze_gen(draw, grid, start, end):
+def maze_gen(draw, grid, start, end): # maze generation loop
     done = False
     last_pos = (0, 0)
     pos_history = []
